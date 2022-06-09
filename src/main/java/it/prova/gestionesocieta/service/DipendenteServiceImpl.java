@@ -3,6 +3,9 @@ package it.prova.gestionesocieta.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +65,16 @@ public class DipendenteServiceImpl implements DipendenteService{
 		
 		return null;
 		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Dipendente> findByExample(Dipendente example) {
+		// TODO Auto-generated method stub
+		ExampleMatcher matcher = ExampleMatcher.matching()
+				.withStringMatcher(StringMatcher.CONTAINING);
+		
+		return (List<Dipendente>) dipendenteRepository.findAll(Example.of(example, matcher));
 	}
 
 }

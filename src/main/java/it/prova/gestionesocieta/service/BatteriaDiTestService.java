@@ -19,9 +19,7 @@ public class BatteriaDiTestService {
 	private DipendenteService dipendenteService;
 
 	public void testInserisciNuovaSocieta() {
-
-		Long nowInMillisecondi = new Date().getTime();
-
+		
 		Societa nuovaSocieta = null;
 		try {
 			nuovaSocieta = new Societa("Solving s.p.a", "Via Kepler 19",
