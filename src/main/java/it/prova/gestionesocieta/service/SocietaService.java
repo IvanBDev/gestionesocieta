@@ -20,7 +20,6 @@ public interface SocietaService {
 
 	public void removeConEccezione(Societa societaInstance);
 
-	public List<Societa> cercaTutteLeSocietaConDipendentiAventiUnaRALUgualeOSuperioreA30000(Integer ral)
-			throws Exception;
+	public List<Societa> cercaTutteLeSocietaConDipendentiAventiUnaRALUgualeOSuperioreA30000();
 
 }

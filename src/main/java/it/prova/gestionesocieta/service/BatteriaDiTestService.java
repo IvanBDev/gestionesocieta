@@ -103,15 +103,15 @@ public class BatteriaDiTestService {
 
 			if (societaDaEliminare.getId() != null)
 				throw new RuntimeException("testInserisciNuovaSocieta...failed: transient object con id valorizzato");
-			
+
 			societaService.inserisciNuovo(societaDaEliminare);
-			
-			if(societaDaEliminare.getId() != null) {
+
+			if (societaDaEliminare.getId() != null) {
 				System.out.println("Inserimento effettuato");
 			}
-			
+
 			societaService.removeConEccezione(societaDaEliminare);
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,38 +119,39 @@ public class BatteriaDiTestService {
 
 		System.out.println("testRimozioneSocieta........OK");
 	}
-	
+
 	public void testInserisciDipendenti() {
-		
+
 		Long nowInMillisecondi = new Date().getTime();
 
 		Societa nuovaSocieta = null;
 		Dipendente nuovoDipendente = null;
 		try {
-			nuovaSocieta = new Societa("Best Life s.r.l. " + nowInMillisecondi,
-					"Via Normandia 66 " + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("29/05/1978"));
-			
+			nuovaSocieta = new Societa("Best Life s.r.l. " + nowInMillisecondi, "Via Normandia 66 " + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("29/05/1978"));
+
 			societaService.inserisciNuovo(nuovaSocieta);
-			
+
 			nowInMillisecondi++;
-			
-			nuovoDipendente = new Dipendente("Ivan" + nowInMillisecondi, "Bendotti" + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
+
+			nuovoDipendente = new Dipendente("Ivan" + nowInMillisecondi, "Bendotti" + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
 			nuovoDipendente.setSocieta(nuovaSocieta);
-			
+
 			dipendenteService.inserisciNuovo(nuovoDipendente);
 			if (nuovoDipendente.getId() == null || nuovoDipendente.getId() < 1)
 				throw new RuntimeException("testInserisciDipendente...failed: inserimento fallito");
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("testInserisciDipendenti........OK");
 	}
-	
+
 	public void testModificaDipendente() {
-		
+
 		Long nowInMillisecondi = new Date().getTime();
 
 		Societa nuovaSocieta = null;
@@ -158,25 +159,26 @@ public class BatteriaDiTestService {
 		try {
 			nuovaSocieta = new Societa("Best Programming s.p.a. " + nowInMillisecondi,
 					"Via Napoli 88 " + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("05/05/1989"));
-			
+
 			societaService.inserisciNuovo(nuovaSocieta);
-			
+
 			nowInMillisecondi++;
-			
-			nuovoDipendente = new Dipendente("Dario" + nowInMillisecondi, "Moccia" + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
+
+			nuovoDipendente = new Dipendente("Dario" + nowInMillisecondi, "Moccia" + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
 			nuovoDipendente.setSocieta(nuovaSocieta);
-			
+
 			dipendenteService.inserisciNuovo(nuovoDipendente);
 			if (nuovoDipendente.getId() == null || nuovoDipendente.getId() < 1)
 				throw new RuntimeException("testInserisciDipendente...failed: inserimento fallito");
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		nowInMillisecondi++;
-		
+
 		Dipendente dipendenteDaModificare = nuovoDipendente;
 		dipendenteDaModificare.setNome("Luigi " + nowInMillisecondi);
 		dipendenteDaModificare.setCognome("Verdi " + nowInMillisecondi);
@@ -187,10 +189,67 @@ public class BatteriaDiTestService {
 			e.printStackTrace();
 		}
 		dipendenteDaModificare.setRedditoAnnuoLordo(27500);
-		
+
 		dipendenteService.aggiorna(dipendenteDaModificare);
-		
+
 		System.out.println("testModificaDipendente..................OK");
+	}
+
+	public void testSocietaConDipendentiConRalAPartireDa30000() {
+		Long nowInMillisecondi = new Date().getTime();
+
+		Societa nuovaSocieta = null;
+		Societa nuovaSocieta2 = null;
+		Societa nuovaSocieta3 = null;
+		Dipendente nuovoDipendente = null;
+		Dipendente nuovoDipendente2 = null;
+		Dipendente nuovoDipendente3 = null;
+		try {
+
+			nuovaSocieta = new Societa("Best Programming s.p.a. " + nowInMillisecondi,
+					"Via Napoli 88 " + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("05/05/1989"));
+
+			nuovaSocieta2 = new Societa("Best Food s.r.l. " + nowInMillisecondi, "Via Ostiense 56 " + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("18/09/1900"));
+
+			nuovaSocieta3 = new Societa("Best Car s.p.a. " + nowInMillisecondi, "Via Verona 100 " + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("27/03/1980"));
+
+			societaService.inserisciNuovo(nuovaSocieta);
+			societaService.inserisciNuovo(nuovaSocieta2);
+			societaService.inserisciNuovo(nuovaSocieta3);
+
+			nowInMillisecondi++;
+
+			nuovoDipendente = new Dipendente("Dario" + nowInMillisecondi, "Moccia" + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 25000);
+
+			nuovoDipendente2 = new Dipendente("Flavio" + nowInMillisecondi, "Girolami" + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("07/02/1978"), 36000);
+
+			nuovoDipendente3 = new Dipendente("Mario" + nowInMillisecondi, "Rossi" + nowInMillisecondi,
+					new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1999"), 31000);
+
+			nuovoDipendente.setSocieta(nuovaSocieta);
+			nuovoDipendente2.setSocieta(nuovaSocieta2);
+			nuovoDipendente3.setSocieta(nuovaSocieta3);
+
+			dipendenteService.inserisciNuovo(nuovoDipendente);
+			dipendenteService.inserisciNuovo(nuovoDipendente2);
+			dipendenteService.inserisciNuovo(nuovoDipendente3);
+			if (nuovoDipendente.getId() == null || nuovoDipendente.getId() < 1 && nuovoDipendente2.getId() == null
+					|| nuovoDipendente2.getId() < 1 || nuovoDipendente3.getId() == null || nuovoDipendente3.getId() < 1)
+				throw new RuntimeException("testInserisciDipendente...failed: inserimento fallito");
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		List<Societa> result = societaService.cercaTutteLeSocietaConDipendentiAventiUnaRALUgualeOSuperioreA30000();
+		
+		result.forEach(item -> System.out.println(item));
+
 	}
 
 }

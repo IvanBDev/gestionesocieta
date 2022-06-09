@@ -21,7 +21,7 @@ public class SocietaServiceImpl implements SocietaService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Societa> findAllSocieta(){
+	public List<Societa> findAllSocieta() {
 		// TODO Auto-generated method stub
 		return (List<Societa>) societaRepository.findAll();
 	}
@@ -59,7 +59,7 @@ public class SocietaServiceImpl implements SocietaService {
 	public List<Societa> findByExample(Societa example) {
 		// TODO Auto-generated method stub
 		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(StringMatcher.CONTAINING);
-		
+
 		return (List<Societa>) societaRepository.findAll(Example.of(example, matcher));
 	}
 
@@ -67,18 +67,17 @@ public class SocietaServiceImpl implements SocietaService {
 	@Transactional
 	public void removeConEccezione(Societa societaInstance) {
 		// TODO Auto-generated method stub
-		if(societaInstance.getDipendenti() != null && !societaInstance.getDipendenti().isEmpty())
+		if (societaInstance.getDipendenti() != null && !societaInstance.getDipendenti().isEmpty())
 			throw new SocietaConAbitantiException("Impossibile eliminare la societa con i dipendenti");
-		
+
 		societaRepository.delete(societaInstance);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Societa> cercaTutteLeSocietaConDipendentiAventiUnaRALUgualeOSuperioreA30000(Integer ral)
-			throws Exception {
+	public List<Societa> cercaTutteLeSocietaConDipendentiAventiUnaRALUgualeOSuperioreA30000() {
 		// TODO Auto-generated method stub
-		return societaRepository.findAllCompanyWhereHisEmployeesHaveRALGreaterOrEqualsThan30000();
-	}
+		return societaRepository.findAllDistinctByDipendenti_ral();
 
+	}
 }
