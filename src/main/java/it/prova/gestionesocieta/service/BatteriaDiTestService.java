@@ -110,7 +110,7 @@ public class BatteriaDiTestService {
 				System.out.println("Inserimento effettuato");
 			}
 			
-			societaService.rimuovi(societaDaEliminare);
+			societaService.removeConEccezione(societaDaEliminare);
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -134,7 +134,7 @@ public class BatteriaDiTestService {
 			
 			nowInMillisecondi++;
 			
-			nuovoDipendente = new Dipendente("Ivan", "Bendotti", new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
+			nuovoDipendente = new Dipendente("Ivan" + nowInMillisecondi, "Bendotti" + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
 			nuovoDipendente.setSocieta(nuovaSocieta);
 			
 			dipendenteService.inserisciNuovo(nuovoDipendente);

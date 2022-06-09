@@ -9,6 +9,7 @@ import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.gestionesocieta.exception.SocietaConAbitantiException;
 import it.prova.gestionesocieta.model.Societa;
 import it.prova.gestionesocieta.repository.SocietaRepository;
 
@@ -66,8 +67,10 @@ public class SocietaServiceImpl implements SocietaService {
 	@Transactional
 	public void removeConEccezione(Societa societaInstance) {
 		// TODO Auto-generated method stub
+		if(societaInstance.getDipendenti() != null && !societaInstance.getDipendenti().isEmpty())
+			throw new SocietaConAbitantiException("Impossibile eliminare la societa con i dipendenti");
+		
 		societaRepository.delete(societaInstance);
-		throw new RuntimeException("Eccezione di prova transazione");
 	}
 
 	@Override
