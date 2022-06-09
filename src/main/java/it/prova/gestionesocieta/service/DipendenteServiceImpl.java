@@ -2,9 +2,6 @@ package it.prova.gestionesocieta.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +14,6 @@ public class DipendenteServiceImpl implements DipendenteService{
 	
 	@Autowired
 	public DipendenteRepository dipendenteRepository;
-	
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	@Override
 	@Transactional(readOnly = true)
