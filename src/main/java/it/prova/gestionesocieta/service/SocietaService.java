@@ -6,7 +6,7 @@ import it.prova.gestionesocieta.model.Societa;
 
 public interface SocietaService {
 	
-	public List<Societa> findAllSocieta() throws Exception;
+	public List<Societa> findAllSocieta();
 	
 	public Societa caricaSingolaSocieta(Long id);
 	

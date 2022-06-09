@@ -20,7 +20,7 @@ public class SocietaServiceImpl implements SocietaService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Societa> findAllSocieta() throws Exception {
+	public List<Societa> findAllSocieta(){
 		// TODO Auto-generated method stub
 		return (List<Societa>) societaRepository.findAll();
 	}
