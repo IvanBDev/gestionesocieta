@@ -148,5 +148,49 @@ public class BatteriaDiTestService {
 		
 		System.out.println("testInserisciDipendenti........OK");
 	}
+	
+	public void testModificaDipendente() {
+		
+		Long nowInMillisecondi = new Date().getTime();
+
+		Societa nuovaSocieta = null;
+		Dipendente nuovoDipendente = null;
+		try {
+			nuovaSocieta = new Societa("Best Programming s.p.a. " + nowInMillisecondi,
+					"Via Napoli 88 " + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("05/05/1989"));
+			
+			societaService.inserisciNuovo(nuovaSocieta);
+			
+			nowInMillisecondi++;
+			
+			nuovoDipendente = new Dipendente("Dario" + nowInMillisecondi, "Moccia" + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
+			nuovoDipendente.setSocieta(nuovaSocieta);
+			
+			dipendenteService.inserisciNuovo(nuovoDipendente);
+			if (nuovoDipendente.getId() == null || nuovoDipendente.getId() < 1)
+				throw new RuntimeException("testInserisciDipendente...failed: inserimento fallito");
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		nowInMillisecondi++;
+		
+		Dipendente dipendenteDaModificare = nuovoDipendente;
+		dipendenteDaModificare.setNome("Luigi " + nowInMillisecondi);
+		dipendenteDaModificare.setCognome("Verdi " + nowInMillisecondi);
+		try {
+			dipendenteDaModificare.setDataAssunzione(new SimpleDateFormat("dd/MM/yyyy").parse("03/06/1980"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dipendenteDaModificare.setRedditoAnnuoLordo(27500);
+		
+		dipendenteService.aggiorna(dipendenteDaModificare);
+		
+		System.out.println("testModificaDipendente..................OK");
+	}
 
 }
