@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.prova.gestionesocieta.model.Dipendente;
 import it.prova.gestionesocieta.model.Societa;
 
 @Service
@@ -117,6 +118,35 @@ public class BatteriaDiTestService {
 		}
 
 		System.out.println("testRimozioneSocieta........OK");
+	}
+	
+	public void testInserisciDipendenti() {
+		
+		Long nowInMillisecondi = new Date().getTime();
+
+		Societa nuovaSocieta = null;
+		Dipendente nuovoDipendente = null;
+		try {
+			nuovaSocieta = new Societa("Best Life s.r.l. " + nowInMillisecondi,
+					"Via Normandia 66 " + nowInMillisecondi, new SimpleDateFormat("dd/MM/yyyy").parse("29/05/1978"));
+			
+			societaService.inserisciNuovo(nuovaSocieta);
+			
+			nowInMillisecondi++;
+			
+			nuovoDipendente = new Dipendente("Ivan", "Bendotti", new SimpleDateFormat("dd/MM/yyyy").parse("03/05/1980"), 250000);
+			nuovoDipendente.setSocieta(nuovaSocieta);
+			
+			dipendenteService.inserisciNuovo(nuovoDipendente);
+			if (nuovoDipendente.getId() == null || nuovoDipendente.getId() < 1)
+				throw new RuntimeException("testInserisciDipendente...failed: inserimento fallito");
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("testInserisciDipendenti........OK");
 	}
 
 }
