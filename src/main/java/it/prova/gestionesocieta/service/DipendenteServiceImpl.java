@@ -54,10 +54,10 @@ public class DipendenteServiceImpl implements DipendenteService{
 	}
 
 	@Override
-	public List<Dipendente> trovaIlDipendentePiuAnzianodelleAzienteFondatePrimaDel1990() {
+	public Dipendente trovaIlDipendentePiuAnzianodelleAzienteFondatePrimaDel1990() {
 		// TODO Auto-generated method stub
 		try {
-			return dipendenteRepository.theOldestEmployeeInTheCompanySince1990();
+			return dipendenteRepository.theOldestEmployeeInTheCompany();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

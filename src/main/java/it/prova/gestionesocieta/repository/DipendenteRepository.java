@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.QueryByExampleExecutor;
 
 import it.prova.gestionesocieta.model.Dipendente;
 
-public interface DipendenteRepository extends CrudRepository<Dipendente, Long>, QueryByExampleExecutor<Dipendente>{
-	
-	@Query("SELECT Min(d) FROM Dipendente d LEFT JOIN d.societa s WHERE s.dataFondazione < '1990-01-01'")
-	public List<Dipendente> theOldestEmployeeInTheCompanySince1990();
-	
+public interface DipendenteRepository extends CrudRepository<Dipendente, Long>, QueryByExampleExecutor<Dipendente> {
+
+	@Query(value = "SELECT * FROM dipendente d LEFT JOIN societa s ON d.societa_id = s.id HAVING s.dataFondazione < '1990-01-01' AND MIN(d.dataAssunzione)", nativeQuery = true)
+	public Dipendente theOldestEmployeeInTheCompany();
+
 }

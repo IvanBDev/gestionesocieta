@@ -18,6 +18,6 @@ public interface DipendenteService {
 	
 	public List<Dipendente> findByExample(Dipendente example);
 	
-	public List<Dipendente> trovaIlDipendentePiuAnzianodelleAzienteFondatePrimaDel1990();
+	public Dipendente trovaIlDipendentePiuAnzianodelleAzienteFondatePrimaDel1990();
 	
 }
