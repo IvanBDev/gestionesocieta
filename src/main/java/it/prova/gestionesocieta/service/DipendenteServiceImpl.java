@@ -1,5 +1,7 @@
 package it.prova.gestionesocieta.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,8 @@ import it.prova.gestionesocieta.model.Dipendente;
 import it.prova.gestionesocieta.repository.DipendenteRepository;
 
 @Service
-public class DipendenteServiceImpl implements DipendenteService{
-	
+public class DipendenteServiceImpl implements DipendenteService {
+
 	@Autowired
 	public DipendenteRepository dipendenteRepository;
 
@@ -57,23 +59,23 @@ public class DipendenteServiceImpl implements DipendenteService{
 	public Dipendente trovaIlDipendentePiuAnzianodelleAzienteFondatePrimaDel1990() {
 		// TODO Auto-generated method stub
 		try {
-			return dipendenteRepository.theOldestEmployeeInTheCompany();
+			return dipendenteRepository.findFirstBySocieta_DataFondazioneBeforeOrderByDataAssunzione(
+					new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1990"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
-		
+
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Dipendente> findByExample(Dipendente example) {
 		// TODO Auto-generated method stub
-		ExampleMatcher matcher = ExampleMatcher.matching()
-				.withStringMatcher(StringMatcher.CONTAINING);
-		
+		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(StringMatcher.CONTAINING);
+
 		return (List<Dipendente>) dipendenteRepository.findAll(Example.of(example, matcher));
 	}
 
